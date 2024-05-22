@@ -1,4 +1,3 @@
-import Header from "../../components/Header/Header";
 import { Formik, Form, Field } from "formik";
 import css from "./MoviesPage.module.css";
 import { useEffect, useState } from "react";
@@ -39,7 +38,6 @@ export default function MoviesPage() {
 
   return (
     <>
-      <Header />
       <div>
         <Formik initialValues={initialValues} onSubmit={submitHandler}>
           <Form className={css.search}>

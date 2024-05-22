@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Outlet, useParams, useLocation, Link } from "react-router-dom";
 import { fetchById } from "../../Fetch/fetch";
-import Header from "../../components/Header/Header";
 import css from "./MovieDetailsPage.module.css";
 
 export default function MoviesDetailsPage() {
@@ -11,7 +10,7 @@ export default function MoviesDetailsPage() {
   const [loading, setLoading] = useState(false);
 
   const location = useLocation();
-  const goBack = location.state ?? "/movies";
+  const goBack = useRef(location.state?.from || "/movies");
 
   useEffect(() => {
     async function getInfo() {
@@ -31,22 +30,23 @@ export default function MoviesDetailsPage() {
     getInfo();
   }, [movieId]);
 
-  if (loading) return <p>LOADING...</p>;
+  if (loading) return <p>Loading...</p>;
   if (error) return <p>Oops, something went wrong...</p>;
   if (!info) return null;
 
   const imgPath = info?.backdrop_path;
-  const imgUrl = `https://image.tmdb.org/t/p/w300${imgPath}`;
-  const popularity = (info.vote_average / 10) * 100;
+  const imgUrl = imgPath ? `https://image.tmdb.org/t/p/w300${imgPath}` : null;
+  const popularity = info.vote_average ? (info.vote_average / 10) * 100 : 0;
 
   return (
     <div className={css.container}>
-      <Header />
-      <Link className={css.backBtn} to={goBack}>
+      <Link className={css.backBtn} to={goBack.current}>
         Go back
       </Link>
       <div className={css.info_page}>
-        <img src={imgUrl} className={css.info_page_img} />
+        {imgUrl && (
+          <img src={imgUrl} alt={info.title} className={css.info_page_img} />
+        )}
         <div className={css.info}>
           <h2 className={css.film_title}>{info.title}</h2>
           <p className={css.p_score}>User Score: {popularity}%</p>
@@ -63,10 +63,18 @@ export default function MoviesDetailsPage() {
         </div>
       </div>
       <div className={css.btns}>
-        <Link to="cast" className={css.backBtn}>
+        <Link
+          to="cast"
+          className={css.backBtn}
+          state={{ from: goBack.current }}
+        >
           Cast
         </Link>
-        <Link to="reviews" className={css.backBtn}>
+        <Link
+          to="reviews"
+          className={css.backBtn}
+          state={{ from: goBack.current }}
+        >
           Reviews
         </Link>
       </div>

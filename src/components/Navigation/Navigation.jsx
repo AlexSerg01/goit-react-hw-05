@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import css from "./Header.module.css";
+import css from "./Navigation.module.css";
 import clsx from "clsx";
 
 const buildLinkClass = ({ isActive }) => {
