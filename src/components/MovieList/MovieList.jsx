@@ -8,12 +8,7 @@ export default function MovieList({ data }) {
     <ul className={css.film_ul}>
       {data.map((el) => (
         <li key={el.id} className={css.film_li}>
-          <Link
-            to={{
-              pathname: `/movies/${el.id}`,
-              state: { from: location },
-            }}
-          >
+          <Link to={`/movies/${el.id}`} state={{ from: location }}>
             <img
               src={`https://image.tmdb.org/t/p/w300${el?.backdrop_path}`}
               alt="poster"
