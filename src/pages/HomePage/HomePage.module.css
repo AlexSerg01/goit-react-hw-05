@@ -1,0 +1,14 @@
+.container {
+  inline-size: 1280px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.page_title {
+  text-align: center;
+  font-size: 36px;
+  line-height: 1.11;
+  letter-spacing: 0.02em;
+  text-transform: capitalize;
+  margin-block-end: 72px;
+}
