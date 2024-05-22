@@ -34,3 +34,14 @@ export async function fetchByQuery(query) {
   const response = await axios.get(url, { params });
   return response.data;
 }
+
+export async function fetchActors(id) {
+  const url = `movie/${id}/credits`;
+  return await axios.get(url);
+}
+
+export async function fetchReviews(id) {
+  const url = `movie/${id}/reviews`;
+
+  return await axios.get(url);
+}

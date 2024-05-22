@@ -61,8 +61,16 @@ export default function MoviesDetailsPage() {
             ))}
           </ul>
         </div>
-        <Outlet />
       </div>
+      <div className={css.btns}>
+        <Link to="cast" className={css.backBtn}>
+          Cast
+        </Link>
+        <Link to="reviews" className={css.backBtn}>
+          Reviews
+        </Link>
+      </div>
+      <Outlet />
     </div>
   );
 }
